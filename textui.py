@@ -1,3 +1,4 @@
+import os.path
 from contextlib import nullcontext
 from util.model_util import get_model, gen_next_chord, load_from_paths
 from util.music_util import ChordParserFSM, convert_to_harte
@@ -57,6 +58,7 @@ def suggest_chord(model, encode, decode):
 
 
 def tui(ckpt_path, tokenizer_path, device):
+    assert os.path.exists(ckpt_path) and os.path.exists(tokenizer_path)
     model, encode, decode = load_from_paths(ckpt_path=ckpt_path, tokenizer_path=tokenizer_path, device_=device)
     print(suggest_chord(model, encode, decode))
 
@@ -73,12 +75,12 @@ def main():
 
 
 def test_main():
-    ckpt_path = '/Users/kurono/Documents/python/GEC/ChordSense/out-chords-ws-selectgen/ckpt.pt'
+    ckpt_path = '/Users/kurono/Documents/python/GEC/ChordSense/save/out-chords-ws-selectgen/ckpt.pt'
     tokenizer_path = '/Users/kurono/Documents/python/GEC/ChordSense/data/chords-ws-selectgen/meta.pkl'
     device = 'mps'
     tui(ckpt_path, tokenizer_path, device)
 
 
 if __name__ == '__main__':
-    main()
-    # test_main()
+    # main()
+    test_main()
