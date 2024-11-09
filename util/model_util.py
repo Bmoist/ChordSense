@@ -58,7 +58,9 @@ def get_model(folder_path):
     return model, encode, decode
 
 
-def load_from_paths(ckpt_path, tokenizer_path, device_):
+def load_from_paths(ckpt_path, tokenizer_path, device_=None):
+    if device_ is None:
+        device_ = 'cpu'
     checkpoint = torch.load(ckpt_path, map_location=device_)
     gptconf = GPTConfig(**checkpoint['model_args'])
     model = GPT(gptconf)

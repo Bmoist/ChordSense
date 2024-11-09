@@ -57,7 +57,7 @@ def suggest_chord(model, encode, decode):
     return convert_to_harte(tok_seq)
 
 
-def tui(ckpt_path, tokenizer_path, device):
+def tui(ckpt_path, tokenizer_path, device=None):
     assert os.path.exists(ckpt_path) and os.path.exists(tokenizer_path)
     model, encode, decode = load_from_paths(ckpt_path=ckpt_path, tokenizer_path=tokenizer_path, device_=device)
     print(suggest_chord(model, encode, decode))
@@ -67,8 +67,8 @@ def main():
     parser = argparse.ArgumentParser(
         description='Text-based User Interface to interact with pretrained and fine-tuned chord models'
     )
-    parser.add_argument('--ckpt_path', type=str, required=False, help="Path to the torch model checkpoint")
-    parser.add_argument('--tokenizer_path', type=str, required=False, help="Path to the chord tokenizer")
+    parser.add_argument('--ckpt_path', type=str, required=True, help="Path to the torch model checkpoint")
+    parser.add_argument('--tokenizer_path', type=str, required=True, help="Path to the chord tokenizer")
     parser.add_argument('--device', type=str, required=False, help="gpu / mps / cpu")
     args = parser.parse_args()
     tui(ckpt_path=args.ckpt_path, tokenizer_path=args.tokenizer_path, device=args.device)
