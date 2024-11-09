@@ -3,7 +3,9 @@
 .idea/
 __pycache__/
 out-*
-data
+#data
 meta.pkl
 **/meta.pkl
+**/train.bin
+**/val.bin
 save
